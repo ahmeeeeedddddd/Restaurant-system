@@ -1,8 +1,8 @@
 // src/routes/index.js
 import express from "express";
 
-// Import route modules (will be created by Developer A & B)
-// import authRoutes from "./auth.routes.js";
+// Import route modules
+import authRoutes from "./auth.routes.js";
 // import restaurantRoutes from "./restaurant.routes.js";
 // import tableRoutes from "./table.routes.js";
 // import menuRoutes from "./menu.routes.js";
@@ -31,7 +31,7 @@ router.get("/test", (req, res) => {
 // ============================================
 
 // Authentication routes - /api/auth/*
-// router.use("/auth", authRoutes);
+router.use("/auth", authRoutes);
 
 // Restaurant routes - /api/restaurant/*
 // router.use("/restaurant", restaurantRoutes);
