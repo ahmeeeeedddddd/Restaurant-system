@@ -5,7 +5,7 @@ import express from "express";
 import authRoutes from "./auth.routes.js";
 // import restaurantRoutes from "./restaurant.routes.js";
 // import tableRoutes from "./table.routes.js";
-// import menuRoutes from "./menu.routes.js";
+import menuRoutes from "./menu.routes.js";
 // import orderRoutes from "./order.routes.js";
 // import paymentRoutes from "./payment.routes.js";
 // import cashierRoutes from "./cashier.routes.js";
@@ -40,7 +40,7 @@ router.use("/auth", authRoutes);
 // router.use("/tables", tableRoutes);
 
 // Menu routes - /api/menu/*
-// router.use("/menu", menuRoutes);
+router.use("/menu", menuRoutes);
 
 // Order routes - /api/orders/*
 // router.use("/orders", orderRoutes);
