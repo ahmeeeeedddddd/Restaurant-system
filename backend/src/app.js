@@ -58,10 +58,10 @@ app.get('/health', (req, res) => {
 app.use('/api', routes);
 
 // ============================================
-// 404 HANDLER
+// 404 HANDLER (catch-all - must be after all other routes)
 // ============================================
 
-app.use('*', (req, res) => {
+app.use((req, res, next) => {  // ✅ No path parameter - catches everything not matched above
   res.status(404).json({
     status: 'error',
     message: `Route ${req.originalUrl} not found`
