@@ -1,7 +1,7 @@
 // src/middleware/auth.js
 import jwt from "jsonwebtoken";
 import { query } from "../config/database.js";
-import { AppError } from "./errorHandler.js";
+import { AppError, ErrorTypes, catchAsync } from './errorHandler.js';
 
 /**
  * Verify JWT token and attach user to request
@@ -82,6 +82,57 @@ export const restrictTo = (...roles) => {
     next();
   };
 };
+
+
+export const protect = catchAsync(async (req, res, next) => {
+  // 1) Get token from header
+  let token;
+  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+    token = req.headers.authorization.split(' ')[1];
+  }
+
+  if (!token) {
+    return next(ErrorTypes.Unauthorized('You are not logged in. Please log in to get access.'));
+  }
+
+  // 2) Verify token
+  let decoded;
+  try {
+    decoded = jwt.verify(token, process.env.JWT_SECRET);
+  } catch (error) {
+    if (error.name === 'JsonWebTokenError') {
+      return next(ErrorTypes.Unauthorized('Invalid token. Please log in again.'));
+    }
+    if (error.name === 'TokenExpiredError') {
+      return next(ErrorTypes.TokenExpired());
+    }
+    return next(error);
+  }
+
+  // 3) Check if user still exists
+  const result = await query(
+    'SELECT * FROM users WHERE user_id = $1 AND is_active = true',
+    [decoded.userId]
+  );
+
+  if (result.rows.length === 0) {
+    return next(ErrorTypes.Unauthorized('The user belonging to this token no longer exists.'));
+  }
+
+  const user = result.rows[0];
+
+  // 4) Attach user to request
+  req.user = {
+    user_id: user.user_id,
+    restaurant_id: user.restaurant_id,
+    email: user.email,
+    full_name: user.full_name,
+    role: user.role
+  };
+
+  next();
+});
+
 
 /**
  * Optional authentication - doesn't fail if no token

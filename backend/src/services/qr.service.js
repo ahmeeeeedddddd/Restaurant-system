@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import { Table, Restaurant, Order } from '../models/index.js';
+// import { Table, Restaurant, Order } from '../models/index.js';
 
 /**
  * QR Service
@@ -441,6 +441,7 @@ class QRService {
 }
 
 export default new QRService();
+export const { generateQRCodeForTable } = new QRService();
 
 // How it works:
 // Scenario: 4 friends at Table 5 in "Cairo Grill" restaurant

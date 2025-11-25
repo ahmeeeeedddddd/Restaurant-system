@@ -4,7 +4,7 @@ import express from "express";
 // Import route modules
 import authRoutes from "./auth.routes.js";
 // import restaurantRoutes from "./restaurant.routes.js";
-// import tableRoutes from "./table.routes.js";
+import tableRoutes from "./table.routes.js";
 import menuRoutes from "./menu.routes.js";
 // import orderRoutes from "./order.routes.js";
 // import paymentRoutes from "./payment.routes.js";
@@ -37,7 +37,8 @@ router.use("/auth", authRoutes);
 // router.use("/restaurant", restaurantRoutes);
 
 // Table management routes - /api/tables/*
-// router.use("/tables", tableRoutes);
+router.use("/tables", tableRoutes);
+router.use('/admin/tables', tableRoutes);
 
 // Menu routes - /api/menu/*
 router.use("/menu", menuRoutes);
