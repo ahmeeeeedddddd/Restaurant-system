@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-// import { Table, Restaurant, Order } from '../models/index.js';
+import { Table, Restaurant, Order } from '../models/index.js';
 
 /**
  * QR Service

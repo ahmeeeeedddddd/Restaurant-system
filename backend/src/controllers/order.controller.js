@@ -1,5 +1,5 @@
 // src/controllers/order.controller.js
-// import { Order, OrderItem, OrderGuest, MenuItem, Table, Restaurant } from '../models/index.js';
+import { Order, OrderItem, OrderGuest, MenuItem, Table, Restaurant } from '../models/index.js';
 import { catchAsync, AppError, ErrorTypes } from '../middleware/errorHandler.js';
 import QRService from '../services/qr.service.js';
 

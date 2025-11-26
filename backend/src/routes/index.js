@@ -6,7 +6,7 @@ import authRoutes from "./auth.routes.js";
 // import restaurantRoutes from "./restaurant.routes.js";
 import tableRoutes from "./table.routes.js";
 import menuRoutes from "./menu.routes.js";
-// import orderRoutes from "./order.routes.js";
+import orderRoutes from "./order.routes.js";
 // import paymentRoutes from "./payment.routes.js";
 // import cashierRoutes from "./cashier.routes.js";
 // import kitchenRoutes from "./kitchen.routes.js";
@@ -41,10 +41,11 @@ router.use("/tables", tableRoutes);
 router.use('/admin/tables', tableRoutes);
 
 // Menu routes - /api/menu/*
-router.use("/menu", menuRoutes);
+// Menu routes - /api/r/:slug/menu/* (public) and /api/admin/menu/* (admin)
+router.use(menuRoutes); 
 
 // Order routes - /api/orders/*
-// router.use("/orders", orderRoutes);
+router.use("/orders", orderRoutes);
 
 // Payment routes - /api/payments/*
 // router.use("/payments", paymentRoutes);
